@@ -1,0 +1,192 @@
+<header class="header-container">
+  <nav
+    class="navbar navbar-expand-lg navbar-light bg-light shadow-lg">
+    <div class="container-fluid">
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarTogglerDemo03"
+        aria-controls="navbarTogglerDemo03"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <a class="navbar-brand animate-brand" href="#">
+        <!-- <img src="/docs/4.0/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt=""> -->
+        Gaikwad
+      </a>
+      <div class="collapse navbar-collapse" id="navbarTogglerDemo03" id="left-navbar">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" routerLink="jwellery/earrings">Earings</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" routerLink="jwellery/necklace">Necklace</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" routerLink="jwellery/rings">Rings</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" routerLink="jwellery/bracelet">Bracelets</a>
+          </li>
+        </ul>
+      </div>
+      <div id="right-navbar">
+        <ul class="nav nav-pills">
+          <li class="nav-item">
+            <a class="nav-link" href="#1"><i class='fa fa-gift' style='font-size:25px; margin-right: 10px;'></i><small>Coupons</small></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#2" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight1" aria-controls="offcanvasRight"><i class='far fa-heart' style='font-size:25px'></i><sub class="text-danger" style="margin-right:10px; font-size:15px">{{totalWishList}}</sub><small>Wishlist</small></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#3" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"><i class='fas fa-shopping-cart' style='font-size:25px'></i><sub class="text-danger" style="margin-right:10px; font-size:15px">{{totalCartItem}}</sub><small>Cart</small></a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<!-- =================== offcanvas element for Add to Cart =============================== -->
+
+<!-- <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Toggle right offcanvas</button> -->
+<div  class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+  <div class="offcanvas-header">
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+     <p><strong>{{totalCartItem}}</strong> item(s)</p>
+  </div>
+  <div class="offcanvas-body">
+    <ng-container *ngIf="totalCartItem === 0">
+
+      <div class="text-center mt-4 cart-heading">
+        <h3><strong>Cart Seems Empty !</strong></h3>
+      </div>
+
+      <div class="text-center mt-4  cart-body">
+        <p>Gaikwad Jwellery by Cartlane | One of kind Silver Jwellery</p>
+      </div>
+      <!-- <h2 style="padding: 20px; text-align: center;">Your Cart</h2>
+      <div  class="d-flex align-items-center justify-content-center">
+        <img  style="width: 300px; height: 300px;" src="data:image/png;base64,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" alt="">
+      </div>
+      <h3 style="padding: 20px; text-align: center;">Your cart seems Empty !</h3> -->
+    </ng-container>
+
+    <ng-container *ngIf="totalCartItem !== 0">
+      <div class="container-fluid">
+        <div class="text-center">
+          <h3><strong>Your Cart</strong></h3>
+        </div>
+        <div class="text-center mt-4  cart-body">
+          <p>Gaikwad Jwellery by Cartlane | One of kind Silver Jwellery</p>
+        </div>
+        
+
+        <div class="card-table mt-4">
+          <div class="card-product">
+            <table class="table table-responsive">
+              <thead>
+                <tr>
+                  <th>Image</th>
+                  <th>Title</th> 
+                  <th>Quatity</th> 
+                  <th>Price</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let product of cartProductList">
+                  <td><img src="{{product.image}}" alt="" style="width: 150px; height:150px"></td>
+                  <td>{{product.title}}</td>
+                  <td>1</td>
+                  <td><strong>{{product.price | currency:'INR'}}</strong></td>
+                  <td>
+                    <button class="btn btn-danger">
+                      <i class="fa fa-trash" aria-hidden="true"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="d-flex justify-content-center btn-checkout">
+            <button routerLink="cart/checkout">
+              proceed to checkout
+            </button>
+          </div>
+
+         </div> 
+      </div>  
+    </ng-container>
+  </div>
+</div>
+
+<!-- =================== offcanvas element for Add to  Wish list =============================== -->
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight1" aria-labelledby="offcanvasRightLabel">
+  <div class="offcanvas-header">
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    <p><strong>{{totalWishList}}</strong> item(s)</p>
+  </div>
+  <div class="offcanvas-body">
+    <ng-container *ngIf="totalWishList === 0">
+
+      <div class="text-center mt-4 cart-heading">
+        <h3><strong>Wish List Seems Empty !</strong></h3>
+      </div>
+
+      <div class="text-center mt-4  cart-body">
+        <p>Gaikwad Jwellery by Cartlane | One of kind Silver Jwellery</p>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="totalCartItem !== 0">
+      <div class="container-fluid">
+        <div class="text-center">
+          <h3><strong>Wish List </strong></h3>
+        </div>
+        <div class="text-center mt-4  cart-body">
+          <p>Gaikwad Jwellery by Cartlane | One of kind Silver Jwellery</p>
+        </div>
+        
+
+        <div class="card-table mt-4">
+          <div class="card-product">
+            <table class="table table-responsive">
+              <thead>
+                <tr>
+                  <th>Image</th>
+                  <th>Title</th> 
+                  <th>Quatity</th> 
+                  <th>Price</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let product of productWishList">
+                  <td><img src="{{product.image}}" alt="" style="width: 150px; height:150px"></td>
+                  <td>{{product.title}}</td>
+                  <td>1</td>
+                  <td><strong>{{product.price | currency:'INR'}}</strong></td>
+                  <td>
+                    <button class="btn btn-danger">
+                      <i class="fa fa-trash" aria-hidden="true"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="d-flex justify-content-center btn-checkout">
+            <button routerLink="cart/checkout">
+              Add to Cart
+            </button>
+          </div>
+         </div> 
+      </div>  
+    </ng-container>
+
+  </div>
+</div>
